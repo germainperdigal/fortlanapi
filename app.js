@@ -7,7 +7,7 @@ const cors = require('cors');
 const userRoutes = require('./api/routes/user');
 const teamRoutes = require('./api/routes/team');
 
-mongoose.connect('mongodb://germainProd:GermainP69@fifbet.com:27017/fifbet?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=fifbet&authMechanism=SCRAM-SHA-256', {
+mongoose.connect('mongodb+srv://prod:pyh4PjtgoJFGNkqX@cluster0-tykwd.gcp.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
 
