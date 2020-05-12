@@ -13,15 +13,15 @@ var fs = require('fs');
 //     ca: ca
 // }
 
-const port = process.env.PORT || 6544;
+const port = process.env.PORT || 2001;
 const server = http.createServer(app);
 
 // const httpsServer = https.createServer(credentials, app);
-// httpsServer.listen(9865, () => {
-//     console.log("HTTPS FORTLAN RUNNING 9865")
+// httpsServer.listen(2002, () => {
+//     console.log("HTTPS FORTLAN RUNNING 2002")
 // })
 
 
 server.listen(port, function() {
-    console.log("HTTPS FORTLAN RUNNING 9865");
+    console.log("HTTP FORTLAN RUNNING 2001");
 });

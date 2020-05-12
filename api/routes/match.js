@@ -7,23 +7,15 @@ const https = require('https');
 
 const user = require("../models/user");
 const team = require("../models/team");
+const match = require("../models/match");
 
 router.post("/", (req, res, next) => {
-    if (req.headers['authorization'] == "0051d02e0ff305df8894456542f9c2e9f2011d7b81d7fe2a88440b0244adcb7e") {
-        const newTeam = new team({
-                _id: new mongoose.Types.ObjectId(),
-                label: req.body.label,
-            })
-            .save()
-            .then(result => {
-                res.json(newTeam).status(200);
-            });
-    }
+
 });
 
 router.get("/", (req, res, next) => {
     if (req.headers['authorization'] == "0051d02e0ff305df8894456542f9c2e9f2011d7b81d7fe2a88440b0244adcb7e") {
-        team.find().exec()
+        match.find().exec()
             .then(result => {
                 res.json(result).status(200);
             });
