@@ -21,6 +21,8 @@ router.post("/", (req, res, next) => {
             .then(result => {
                 res.json(result).status(200);
             });
+    } else {
+        req.json({  message: "Merci de vous connecter !" }).status(401);
     }
 });
 
@@ -37,6 +39,8 @@ router.patch("/:id", (req, res, next) => { // Route to enter a match
                 });
             }
         });
+    } else {
+        req.json({  message: "Merci de vous connecter !" }).status(401);
     }
 });
 
@@ -47,6 +51,8 @@ router.patch("/score/:id", (req, res, next) => { // Route to set score
                 match.updateOne({ _id: req.params.id }, { $set: { "score": req.body.score, "played": true } }).exec().then(upMatch => {
                     req.json(upMatch).status(200);
                 });
+            } else {
+                req.json({  message: "Le score a déjà été renseigné ! " }).status(401);
             }
         });
     }
@@ -58,6 +64,8 @@ router.get("/", (req, res, next) => {
             .then(result => {
                 res.json(result).status(200);
             });
+    } else {
+        req.json({  message: "Merci de vous connecter !" }).status(401);
     }
 });
 

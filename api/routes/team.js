@@ -9,15 +9,17 @@ const user = require("../models/user");
 const team = require("../models/team");
 
 router.post("/", (req, res, next) => {
-    if (req.headers['authorization'] == "0051d02e0ff305df8894456542f9c2e9f2011d7b81d7fe2a88440b0244adcb7e") {
-        const newPromo = new promo({
+    if (jwtUtils.getUserTeam(req.headers['authorization']) != -1) {
+        const newTeam = new team({
                 _id: new mongoose.Types.ObjectId(),
                 label: req.body.label,
             })
             .save()
             .then(result => {
-                res.json(result).status(200);
+                res.json(newTeam).status(200);
             });
+    } else {
+        req.json({  message: "Merci de vous connecter !" }).status(401);
     }
 });
 
