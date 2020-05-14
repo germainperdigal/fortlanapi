@@ -8,12 +8,6 @@ const https = require('https');
 const user = require("../models/user");
 const team = require("../models/team");
 
-router.post('/unlock', (req, res, next) => {
-    master.findOne({  _id: "conf" }).exec().then(resultMaster => {
-        res.json(resultMaster.password).status(200);
-    })
-});
-
 router.post('/register', (req, res, next) => {
     user.find({ email: req.body.email })
         .exec()
@@ -73,30 +67,6 @@ router.post('/login', (req, res, next) => {
                 }
                 if (result) {
                     const token = jwtUtils.generateToken(resUser[0], false);
-                    if (!resUser[0].stripe) {
-                        stripe.customers.create({
-                                email: req.body.email
-                            },
-                            function(err, customer) {
-                                user.findOneAndUpdate({ _id: resUser[0]._id }, { stripe: customer.id }).exec();
-                            }
-                        );
-                    }
-                    if (resUser[0].subscription) {
-                        if (new Date(resUser[0].subscription) > new Date()) {
-                            stripe.subscriptions.retrieve(resUser[0].plan,
-                                function(err, subscriptions) {
-                                    if (new Date(subscriptions.current_period_end * 1000) > new Date(resUser[0].subscription) && new Date(subscriptions.current_period_end * 1000) >= new Date()) {
-                                        user.findOneAndUpdate({ _id: resUser[0]._id }, { subscription: new Date(subscriptions.current_period_end * 1000).toISOString() }).exec();
-                                    } else if (new Date(subscriptions.current_period_end * 1000) < new Date()) {
-                                        user.findOneAndUpdate({ _id: resUser[0]._id }, { subscription: null }).exec();
-                                    }
-                                }
-                            );
-                        } else {
-                            console.log("T'inquiète ça passe");
-                        }
-                    }
                     return res.status(200).json({
                         message: "Connexion réussie !",
                         userID: resUser[0]._id,
@@ -114,6 +84,14 @@ router.post('/login', (req, res, next) => {
                 error: err
             });
         });
+});
+
+router.patch('/team', (req, res, next) => {
+    if (jwtUtils.getUserTeam(req.headers['authorization']) != -1) {
+        user.updateOne({ _id: jwtUtils.getUserTeam(req.headers['authorization']) }, { $set: { "team": req.body.team } }).exec().then(upUser => {
+            res.json(upUser).status(200);
+        });
+    }
 });
 
 

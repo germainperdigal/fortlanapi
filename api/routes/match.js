@@ -44,7 +44,7 @@ router.patch("/score/:id", (req, res, next) => { // Route to set score
     if (jwtUtils.getUserTeam(req.headers['authorization']) != -1) {
         match.findOne({ _id: req.params.id }).exec().then(tMatch => {
             if (!tMatch.score) {
-                match.updateOne({ _id: req.params.id }, { $set: { "score": req.body.score } }).exec().then(upMatch => {
+                match.updateOne({ _id: req.params.id }, { $set: { "score": req.body.score, "played": true } }).exec().then(upMatch => {
                     req.json(upMatch).status(200);
                 });
             }

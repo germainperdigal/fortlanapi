@@ -7,7 +7,7 @@ const signalSchema = mongoose.Schema({
     team1: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },
     team2: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },
     score: { type: Number },
-    state: { type: Boolean, required: false, default: false }
+    played: { type: Boolean, required: false, default: false }
 });
 
 module.exports = mongoose.model('signal', signalSchema);
