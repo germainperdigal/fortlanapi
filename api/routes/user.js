@@ -28,7 +28,8 @@ router.post('/register', (req, res, next) => {
                             email: String(req.body.email).toLowerCase(),
                             password: hash,
                             fname: req.body.fname,
-                            lname: req.body.lname
+                            lname: req.body.lname,
+                            pseudo: req.body.pseudo
                         });
                         newUser
                             .save()

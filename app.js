@@ -6,8 +6,9 @@ const cors = require('cors');
 
 const userRoutes = require('./api/routes/user');
 const teamRoutes = require('./api/routes/team');
+const matchRoutes = require('./api/routes/match');
 
-mongoose.connect('mongodb://germainProd:GermainP69@fifbet.com:27017/fifbet?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&authSource=fifbet&authMechanism=SCRAM-SHA-256', {
+mongoose.connect('mongodb+srv://prod:pyh4PjtgoJFGNkqX@cluster0-tykwd.gcp.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
 
@@ -27,5 +28,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1
 app.use(cors());
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
+app.use('/match', matchRoutes);
 
 module.exports = app;

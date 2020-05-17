@@ -19,7 +19,7 @@ router.post("/", (req, res, next) => {
                 res.json(newTeam).status(200);
             });
     } else {
-        req.json({  message: "Merci de vous connecter !" }).status(401);
+        res.json({  message: "Merci de vous connecter !" }).status(401);
     }
 });
 

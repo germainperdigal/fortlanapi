@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     password: { type: String, required: true },
     fname: { type: String, required: true },
     lname: { type: String, required: true },
+    pseudo: { type: String, required: true },
     isBan: {  type: Boolean, required: false, default: false },
     team: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },
 });
