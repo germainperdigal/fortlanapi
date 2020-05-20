@@ -28,7 +28,7 @@ router.post("/", (req, res, next) => {
 router.patch("/join", (req, res, next) => {
     if (jwtUtils.getUserId(req.headers['authorization']) != -1) {
         user.findOneAndUpdate({ _id: jwtUtils.getUserId(req.headers['authorization']) }, { $set: { "team": req.body.team } }).exec().then(resultat => {
-            res.json(newTeam).status(200);
+            res.json(resultat).status(200);
         });
     } else {
         res.json({  message: "Merci de vous connecter !" }).status(401);
