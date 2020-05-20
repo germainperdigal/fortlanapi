@@ -9,14 +9,16 @@ const user = require("../models/user");
 const team = require("../models/team");
 
 router.post("/", (req, res, next) => {
-    if (jwtUtils.getUserTeam(req.headers['authorization']) != -1) {
+    if (jwtUtils.getUserId(req.headers['authorization']) != -1) {
         const newTeam = new team({
                 _id: new mongoose.Types.ObjectId(),
                 label: req.body.label,
             })
             .save()
             .then(result => {
-                res.json(newTeam).status(200);
+                user.findOneAndUpdate({ _id: jwtUtils.getUserId(req.headers['authorization']) }, { $set: { "team": result._id } }).exec().then(resultat => {
+                    res.json(newTeam).status(200);
+                })
             });
     } else {
         res.json({  message: "Merci de vous connecter !" }).status(401);

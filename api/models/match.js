@@ -6,7 +6,6 @@ const matchSchema = mongoose.Schema({
     label: { type: String, required: true },
     team1: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },
     team2: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },
-    score: { type: Number },
     win: {  type: Number, default: 100, required: true },
     played: { type: Boolean, required: false, default: false },
     winner: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'team' },

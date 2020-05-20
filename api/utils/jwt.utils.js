@@ -31,6 +31,15 @@ module.exports = {
         }
         return userId;
     },
+    generateAdminToken: function(userData) {
+        return jwt.sign({
+                pseudo: userData.pseudo,
+            },
+            "B38TyQffbmCzEsyRc", {
+                expiresIn: "1h"
+            }
+        );
+    },
     getUserTeam: function(authorization) {
         var team = -1;
         if (authorization != undefined) {

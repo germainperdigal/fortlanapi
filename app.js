@@ -7,6 +7,7 @@ const cors = require('cors');
 const userRoutes = require('./api/routes/user');
 const teamRoutes = require('./api/routes/team');
 const matchRoutes = require('./api/routes/match');
+const adminRoutes = require('./api/routes/admin');
 
 mongoose.connect('mongodb+srv://prod:pyh4PjtgoJFGNkqX@cluster0-tykwd.gcp.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1
 
 app.use(cors());
 app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
 app.use('/team', teamRoutes);
 app.use('/match', matchRoutes);
 

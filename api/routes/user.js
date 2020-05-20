@@ -48,6 +48,22 @@ router.post('/register', (req, res, next) => {
         });
 });
 
+router.get('/me', (req, res, next) => {
+    if (jwtUtils.getUserTeam(req.headers['authorization']) != -1) {
+        user.findOne({  _id: jwtUtils.getUserId(req.headers['authorization']) }).populate('team').exec().then(rUser => {
+            res.status(200).json(rUser);
+        });
+    } else {
+        res.json({  message: "Merci de vous connecter !" }).status(401);
+    }
+});
+
+router.get('/:id', (req, res, next) => {
+    user.findOne({  _id: req.params.id }).populate('team').exec().then(rUser => {
+        res.status(200).json(rUser);
+    });
+});
+
 router.post('/login', (req, res, next) => {
     user.find({
             email: String(req.body.email).toLowerCase(),
